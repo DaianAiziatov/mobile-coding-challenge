@@ -12,9 +12,13 @@ class PhotosViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        APIClient().fetchPhotos(from: 1) { result in
+            switch result {
+            case .failure(let error):
+                print(error)
+            case .success(var response):
+                print(response.totalPages)
+            }
+        }
     }
-
-
 }
-
