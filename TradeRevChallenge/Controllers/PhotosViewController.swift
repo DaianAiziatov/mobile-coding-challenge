@@ -65,6 +65,16 @@ class PhotosViewController: UIViewController, AlertDisplayable {
         }
     }
 
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showFull", let destination = (segue.destination as? FullPhotoViewController) {
+            destination.photos = photos
+            if let cell = sender as? UICollectionViewCell, let indexPath = self.collectionView.indexPath(for: cell) {
+                print("IndexPath: \(indexPath)")
+                destination.passedContentOffset = indexPath
+            }
+        }
+    }
+
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         // Check if bottom reached and we are still not in the end of fetching
         if scrollView.contentOffset.y >= (scrollView.contentSize.height - scrollView.frame.size.height) {
@@ -96,7 +106,7 @@ extension PhotosViewController: UICollectionViewDataSource {
 extension PhotosViewController: UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("Pressed on \(indexPath.item)")
+        performSegue(withIdentifier: "showFull", sender: collectionView.cellForItem(at: indexPath))
     }
 
     func collectionView(_ collectionView: UICollectionView,
@@ -139,7 +149,7 @@ extension PhotosViewController: UICollectionViewDataSourcePrefetching {
 // MARK: - Helpers for pagination
 private extension PhotosViewController {
     func isLoadingCell(for indexPath: IndexPath) -> Bool {
-        print("indexPath.item = \(indexPath.item) currentcount = \(self.currentCount)")
+        //print("indexPath.item = \(indexPath.item) currentcount = \(self.currentCount)")
         return indexPath.item >= self.currentCount - 1
     }
 
@@ -157,8 +167,8 @@ private extension PhotosViewController {
             return
         }
         collectionView.insertItems(at: newIndexPathsToReload)
-        //let indexPathsToReload = visibleIndexPathsToReload(intersecting: newIndexPathsToReload)
-        collectionView.reloadItems(at: newIndexPathsToReload)
+        let indexPathsToReload = visibleIndexPathsToReload(intersecting: newIndexPathsToReload)
+        collectionView.reloadItems(at: indexPathsToReload)
     }
 
     func onFetchFailed(with reason: String) {

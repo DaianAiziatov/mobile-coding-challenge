@@ -9,7 +9,6 @@
 import Foundation
 
 struct User: Decodable {
-    private(set) var id: String?
     private(set) var username: String?
     private(set) var name: String?
     private(set) var bio: String?

@@ -48,11 +48,49 @@
                     <connections>
                         <outlet property="collectionView" destination="Hrz-e9-EQS" id="NbA-9r-iMJ"/>
                         <outlet property="indicatorView" destination="5Fk-lM-hVi" id="sGO-yt-7Wt"/>
+                        <segue destination="jdk-gz-ldW" kind="show" identifier="showFull" id="4ub-fA-uRL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="992.79999999999995" y="26.53673163418291"/>
+        </scene>
+        <!--Full Photo View Controller-->
+        <scene sceneID="svD-cd-MlD">
+            <objects>
+                <viewController id="jdk-gz-ldW" customClass="FullPhotoViewController" customModule="TradeRevChallenge" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="hzC-rn-sTv">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="0vB-jS-iMO">
+                                <rect key="frame" x="0.0" y="116" width="375" height="551"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="ImK-78-EHF">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells/>
+                            </collectionView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="0vB-jS-iMO" firstAttribute="leading" secondItem="zYf-GC-mbb" secondAttribute="leading" id="Dsj-xR-0Dt"/>
+                            <constraint firstItem="zYf-GC-mbb" firstAttribute="bottom" secondItem="0vB-jS-iMO" secondAttribute="bottom" id="Te0-qv-8lG"/>
+                            <constraint firstItem="zYf-GC-mbb" firstAttribute="trailing" secondItem="0vB-jS-iMO" secondAttribute="trailing" id="Xay-gP-k0D"/>
+                            <constraint firstItem="0vB-jS-iMO" firstAttribute="top" secondItem="zYf-GC-mbb" secondAttribute="top" id="gYT-H0-lhS"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="zYf-GC-mbb"/>
+                    </view>
+                    <connections>
+                        <outlet property="collectionView" destination="0vB-jS-iMO" id="2Ju-ZB-6Uj"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wbE-vS-jaD" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1884" y="27"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="5yd-8d-4i2">
@@ -62,6 +100,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="bRs-1a-zQR">
                         <rect key="frame" x="0.0" y="20" width="375" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
