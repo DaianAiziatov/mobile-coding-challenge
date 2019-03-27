@@ -8,17 +8,148 @@
 
 import UIKit
 
-class PhotosViewController: UIViewController {
+class PhotosViewController: UIViewController, AlertDisplayable {
+
+    @IBOutlet private weak var collectionView: UICollectionView!
+    @IBOutlet private weak var indicatorView: UIActivityIndicatorView!
+
+    private var photos = [Photo]()
+    private var client = APIClient()
+
+    private var currentPage = 1
+    private var total = 0
+    private var isFetchInProgress = false
+    private var totalCount: Int {
+        return total
+    }
+    private var currentCount: Int {
+        return photos.count
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        APIClient().fetchPhotos(from: 1) { result in
+        indicatorView.startAnimating()
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.prefetchDataSource = self
+        collectionView.register(UINib(nibName: "ThumbCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "thumbCell")
+        fetchPhotos()
+    }
+
+    private func fetchPhotos() {
+        guard !isFetchInProgress else {
+            return
+        }
+        isFetchInProgress = true
+        client.fetchPhotos(from: currentPage) { [unowned self] result in
             switch result {
             case .failure(let error):
-                print(error)
-            case .success(var response):
-                print(response.totalPages)
+                DispatchQueue.main.async {
+                    self.isFetchInProgress = false
+                    self.onFetchFailed(with: error.reason)
+                }
+            case .success(let response):
+                DispatchQueue.main.async {
+                    self.currentPage += 1
+                    self.isFetchInProgress = false
+                    self.total = response.totalPhotos
+                    self.photos.append(contentsOf: response.photos)
+                    if response.page > 1 {
+                        let indexPathsToReload = self.calculateIndexPathsToReload(from: response.photos)
+                        self.onFetchCompleted(with: indexPathsToReload)
+                    } else {
+                        self.onFetchCompleted(with: .none)
+                    }
+                }
             }
         }
+    }
+}
+
+// MARK: - Collection View Data Source
+extension PhotosViewController: UICollectionViewDataSource {
+
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return photos.count
+    }
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "thumbCell", for: indexPath) as? ThumbCollectionViewCell {
+            cell.configure(with: photos[indexPath.item])
+            return cell
+        }
+        return UICollectionViewCell()
+    }
+
+}
+
+// MARK: - Collection View Delegate Flow Layout
+extension PhotosViewController: UICollectionViewDelegateFlowLayout {
+
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let numberOfPhotosInRow = CGFloat(collectionView.frame.size.width > collectionView.frame.size.height ? 5.0 : 3.0)
+        let size = collectionView.frame.size.width / numberOfPhotosInRow - 3.0
+        return CGSize(width: size, height: size)
+    }
+
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 2.0, left: 2.0, bottom: 2.0, right: 2.0)
+    }
+
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 1.0
+    }
+
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 2.0
+    }
+
+}
+
+// MARK: - Collection View Data Source Prefetching
+extension PhotosViewController: UICollectionViewDataSourcePrefetching {
+    func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
+        if indexPaths.contains(where: isLoadingCell) {
+            fetchPhotos()
+        }
+    }
+}
+
+// MARK: - Helpers for pagination
+private extension PhotosViewController {
+    func isLoadingCell(for indexPath: IndexPath) -> Bool {
+        return indexPath.item >= self.currentCount - 1
+    }
+
+    func onFetchCompleted(with newIndexPathsToReload: [IndexPath]?) {
+        guard let newIndexPathsToReload = newIndexPathsToReload else {
+            indicatorView.stopAnimating()
+            collectionView.isHidden = false
+            collectionView.reloadData()
+            return
+        }
+        collectionView.insertItems(at: newIndexPathsToReload)
+        collectionView.reloadItems(at: newIndexPathsToReload)
+    }
+
+    func onFetchFailed(with reason: String) {
+        indicatorView.stopAnimating()
+        let title = "Warning"
+        let action = UIAlertAction(title: "OK", style: .default)
+        displayAlert(with: title, message: reason, actions: [action])
+    }
+
+    func calculateIndexPathsToReload(from newPhotos: [Photo]) -> [IndexPath] {
+        let startIndex = photos.count - newPhotos.count
+        let endIndex = startIndex + newPhotos.count
+        return (startIndex..<endIndex).map { IndexPath(row: $0, section: 0) }
     }
 }

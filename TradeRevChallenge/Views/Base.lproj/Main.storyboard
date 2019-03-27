@@ -17,10 +17,38 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Hrz-e9-EQS">
+                                <rect key="frame" x="0.0" y="116" width="375" height="551"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="L05-yw-NL7">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells/>
+                            </collectionView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="5Fk-lM-hVi">
+                                <rect key="frame" x="169" y="373" width="37" height="37"/>
+                            </activityIndicatorView>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="Hrz-e9-EQS" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="5Y2-hS-Fa4"/>
+                            <constraint firstItem="5Fk-lM-hVi" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="GUg-H1-QIy"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Hrz-e9-EQS" secondAttribute="trailing" id="HUr-Me-G98"/>
+                            <constraint firstItem="Hrz-e9-EQS" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Nxq-U2-NFr"/>
+                            <constraint firstItem="5Fk-lM-hVi" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="hXd-gu-o7r"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Hrz-e9-EQS" secondAttribute="bottom" id="vWm-5p-UaE"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" title="Photos" id="8Kv-GF-bjz"/>
+                    <connections>
+                        <outlet property="collectionView" destination="Hrz-e9-EQS" id="NbA-9r-iMJ"/>
+                        <outlet property="indicatorView" destination="5Fk-lM-hVi" id="sGO-yt-7Wt"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>

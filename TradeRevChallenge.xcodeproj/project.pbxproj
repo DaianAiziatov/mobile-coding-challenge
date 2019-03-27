@@ -24,6 +24,11 @@
 		2BFC921A224A972C00182D89 /* Urls.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BFC9219224A972C00182D89 /* Urls.swift */; };
 		2BFC921C224A974400182D89 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BFC921B224A974400182D89 /* User.swift */; };
 		2BFC9220224A9DF900182D89 /* APIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BFC921F224A9DF900182D89 /* APIResponse.swift */; };
+		2BFC9224224ABED400182D89 /* ThumbCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BFC9222224ABED400182D89 /* ThumbCollectionViewCell.swift */; };
+		2BFC9225224ABED400182D89 /* ThumbCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2BFC9223224ABED400182D89 /* ThumbCollectionViewCell.xib */; };
+		2BFC9228224AC0CC00182D89 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BFC9227224AC0CC00182D89 /* UIImage.swift */; };
+		2BFC922A224AD32700182D89 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BFC9229224AD32700182D89 /* UIView.swift */; };
+		2BFC922C224AEB0200182D89 /* AlertDisplayable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BFC922B224AEB0100182D89 /* AlertDisplayable.swift */; };
 		9C4C805121288D5C24F5754C /* Pods_TradeRevChallengeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5AD3CF1AC2BF0B6C5CC0D22 /* Pods_TradeRevChallengeTests.framework */; };
 		9F1EB8F936300FFAFF112C4D /* Pods_TradeRevChallenge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6480A03CD5CB3E9FA74B7ECD /* Pods_TradeRevChallenge.framework */; };
 /* End PBXBuildFile section */
@@ -61,6 +66,11 @@
 		2BFC9219224A972C00182D89 /* Urls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Urls.swift; sourceTree = "<group>"; };
 		2BFC921B224A974400182D89 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		2BFC921F224A9DF900182D89 /* APIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIResponse.swift; sourceTree = "<group>"; };
+		2BFC9222224ABED400182D89 /* ThumbCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThumbCollectionViewCell.swift; sourceTree = "<group>"; };
+		2BFC9223224ABED400182D89 /* ThumbCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ThumbCollectionViewCell.xib; sourceTree = "<group>"; };
+		2BFC9227224AC0CC00182D89 /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
+		2BFC9229224AD32700182D89 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
+		2BFC922B224AEB0100182D89 /* AlertDisplayable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertDisplayable.swift; sourceTree = "<group>"; };
 		40374C23547C385085070226 /* Pods-TradeRevChallengeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TradeRevChallengeTests.debug.xcconfig"; path = "Target Support Files/Pods-TradeRevChallengeTests/Pods-TradeRevChallengeTests.debug.xcconfig"; sourceTree = "<group>"; };
 		6480A03CD5CB3E9FA74B7ECD /* Pods_TradeRevChallenge.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TradeRevChallenge.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5AD3CF1AC2BF0B6C5CC0D22 /* Pods_TradeRevChallengeTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TradeRevChallengeTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -111,6 +121,7 @@
 		2BFC91E2224A862B00182D89 /* TradeRevChallenge */ = {
 			isa = PBXGroup;
 			children = (
+				2BFC922D224AEB1900182D89 /* Protocols */,
 				2BFC9221224AA00000182D89 /* Extensions */,
 				2BFC9216224A948A00182D89 /* Models */,
 				2BFC9209224A8F7600182D89 /* Networking */,
@@ -141,6 +152,7 @@
 		2BFC9207224A8AD100182D89 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				2BFC9226224ABED900182D89 /* ThumbCollectionViewCell */,
 				2BFC91E7224A862B00182D89 /* Main.storyboard */,
 				2BFC91EC224A862E00182D89 /* LaunchScreen.storyboard */,
 			);
@@ -185,8 +197,27 @@
 		2BFC9221224AA00000182D89 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				2BFC9227224AC0CC00182D89 /* UIImage.swift */,
+				2BFC9229224AD32700182D89 /* UIView.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		2BFC9226224ABED900182D89 /* ThumbCollectionViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				2BFC9222224ABED400182D89 /* ThumbCollectionViewCell.swift */,
+				2BFC9223224ABED400182D89 /* ThumbCollectionViewCell.xib */,
+			);
+			path = ThumbCollectionViewCell;
+			sourceTree = "<group>";
+		};
+		2BFC922D224AEB1900182D89 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				2BFC922B224AEB0100182D89 /* AlertDisplayable.swift */,
+			);
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 		5A6BB9D427EC102979C58413 /* Pods */ = {
@@ -297,6 +328,7 @@
 				2BFC9204224A86FB00182D89 /* APIKeys.plist in Resources */,
 				2BFC91EB224A862E00182D89 /* Assets.xcassets in Resources */,
 				2BFC91E9224A862B00182D89 /* Main.storyboard in Resources */,
+				2BFC9225224ABED400182D89 /* ThumbCollectionViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -380,12 +412,16 @@
 			files = (
 				2BFC9210224A8FA200182D89 /* Result.swift in Sources */,
 				2BFC9214224A8FA200182D89 /* URLRequest.swift in Sources */,
+				2BFC9228224AC0CC00182D89 /* UIImage.swift in Sources */,
+				2BFC922C224AEB0200182D89 /* AlertDisplayable.swift in Sources */,
 				2BFC91E6224A862B00182D89 /* PhotosViewController.swift in Sources */,
 				2BFC9218224A951C00182D89 /* Photo.swift in Sources */,
 				2BFC9215224A8FA200182D89 /* APIClient.swift in Sources */,
 				2BFC9220224A9DF900182D89 /* APIResponse.swift in Sources */,
 				2BFC9212224A8FA200182D89 /* HTTPURLResponse.swift in Sources */,
 				2BFC9213224A8FA200182D89 /* DataResponseError.swift in Sources */,
+				2BFC9224224ABED400182D89 /* ThumbCollectionViewCell.swift in Sources */,
+				2BFC922A224AD32700182D89 /* UIView.swift in Sources */,
 				2BFC9211224A8FA200182D89 /* APIRequest.swift in Sources */,
 				2BFC91E4224A862B00182D89 /* AppDelegate.swift in Sources */,
 				2BFC921A224A972C00182D89 /* Urls.swift in Sources */,
