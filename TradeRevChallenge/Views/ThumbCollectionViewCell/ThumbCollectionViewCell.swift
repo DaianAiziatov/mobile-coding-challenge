@@ -29,7 +29,10 @@ class ThumbCollectionViewCell: UICollectionViewCell {
                 setErrorImage()
                 return
             }
-            UIImage.downloaded(from: thumbURL) { [unowned self] result in
+            UIImage.downloaded(from: thumbURL) { [weak self] result in
+                guard let self = self else {
+                    return
+                }
                 switch result {
                 case .failure(_):
                     DispatchQueue.main.async {

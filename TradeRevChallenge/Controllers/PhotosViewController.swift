@@ -64,6 +64,15 @@ class PhotosViewController: UIViewController, AlertDisplayable {
             }
         }
     }
+
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        // Check if bottom reached and we are still not in the end of fetching
+        if scrollView.contentOffset.y >= (scrollView.contentSize.height - scrollView.frame.size.height) {
+            if collectionView.indexPathsForVisibleItems.count < total {
+                fetchPhotos()
+            }
+        }
+    }
 }
 
 // MARK: - Collection View Data Source
@@ -85,6 +94,10 @@ extension PhotosViewController: UICollectionViewDataSource {
 
 // MARK: - Collection View Delegate Flow Layout
 extension PhotosViewController: UICollectionViewDelegateFlowLayout {
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("Pressed on \(indexPath.item)")
+    }
 
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
@@ -126,7 +139,14 @@ extension PhotosViewController: UICollectionViewDataSourcePrefetching {
 // MARK: - Helpers for pagination
 private extension PhotosViewController {
     func isLoadingCell(for indexPath: IndexPath) -> Bool {
+        print("indexPath.item = \(indexPath.item) currentcount = \(self.currentCount)")
         return indexPath.item >= self.currentCount - 1
+    }
+
+    func visibleIndexPathsToReload(intersecting indexPaths: [IndexPath]) -> [IndexPath] {
+        let indexPathsForVisibleItems = collectionView.indexPathsForVisibleItems
+        let indexPathsIntersection = Set(indexPathsForVisibleItems).intersection(indexPaths)
+        return Array(indexPathsIntersection)
     }
 
     func onFetchCompleted(with newIndexPathsToReload: [IndexPath]?) {
@@ -137,6 +157,7 @@ private extension PhotosViewController {
             return
         }
         collectionView.insertItems(at: newIndexPathsToReload)
+        //let indexPathsToReload = visibleIndexPathsToReload(intersecting: newIndexPathsToReload)
         collectionView.reloadItems(at: newIndexPathsToReload)
     }
 

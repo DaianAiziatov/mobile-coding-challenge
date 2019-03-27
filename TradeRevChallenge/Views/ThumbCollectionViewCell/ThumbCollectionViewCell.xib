@@ -20,32 +20,33 @@
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XOk-BQ-xcx" userLabel="Content View">
-                        <rect key="frame" x="0.0" y="0.0" width="292" height="283"/>
+                        <rect key="frame" x="0.0" y="0.0" width="292" height="292"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="W6O-t1-Vlv">
-                                <rect key="frame" x="21" y="16.5" width="250" height="250"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="W6O-t1-Vlv">
+                                <rect key="frame" x="8" y="8" width="276" height="267"/>
                             </imageView>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="6Yt-1X-iBD">
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="6Yt-1X-iBD">
                                 <rect key="frame" x="127.5" y="123" width="37" height="37"/>
+                                <color key="color" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="6Yt-1X-iBD" firstAttribute="centerY" secondItem="XOk-BQ-xcx" secondAttribute="centerY" id="1BJ-wS-Ayz"/>
+                            <constraint firstItem="6Yt-1X-iBD" firstAttribute="centerY" secondItem="XOk-BQ-xcx" secondAttribute="centerY" constant="-4.5" id="1BJ-wS-Ayz"/>
                             <constraint firstItem="6Yt-1X-iBD" firstAttribute="centerX" secondItem="XOk-BQ-xcx" secondAttribute="centerX" id="l7b-y8-2GD"/>
                         </constraints>
                     </view>
                 </subviews>
             </view>
             <constraints>
+                <constraint firstItem="ZTg-uK-7eu" firstAttribute="trailing" secondItem="W6O-t1-Vlv" secondAttribute="trailing" constant="8" id="1qp-oD-oxi"/>
                 <constraint firstItem="XOk-BQ-xcx" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="3iY-gU-uh0"/>
-                <constraint firstItem="W6O-t1-Vlv" firstAttribute="top" secondItem="ZTg-uK-7eu" secondAttribute="top" priority="750" constant="16.5" id="BJQ-dV-pc6"/>
-                <constraint firstItem="ZTg-uK-7eu" firstAttribute="trailing" secondItem="W6O-t1-Vlv" secondAttribute="trailing" priority="750" constant="21" id="Gak-Ik-fWU"/>
-                <constraint firstAttribute="bottom" secondItem="XOk-BQ-xcx" secondAttribute="bottom" id="OXm-TJ-byW"/>
-                <constraint firstItem="W6O-t1-Vlv" firstAttribute="leading" secondItem="ZTg-uK-7eu" secondAttribute="leading" priority="750" constant="21" id="kLX-xS-Kbf"/>
+                <constraint firstAttribute="bottom" secondItem="XOk-BQ-xcx" secondAttribute="bottom" constant="-9" id="OXm-TJ-byW"/>
+                <constraint firstItem="W6O-t1-Vlv" firstAttribute="leading" secondItem="ZTg-uK-7eu" secondAttribute="leading" constant="8" id="e3v-TC-qpS"/>
+                <constraint firstItem="W6O-t1-Vlv" firstAttribute="top" secondItem="ZTg-uK-7eu" secondAttribute="top" constant="8" id="hcJ-eO-wMy"/>
                 <constraint firstAttribute="trailing" secondItem="XOk-BQ-xcx" secondAttribute="trailing" id="m3e-zN-cf8"/>
                 <constraint firstItem="XOk-BQ-xcx" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="maD-bs-8Z3"/>
-                <constraint firstItem="ZTg-uK-7eu" firstAttribute="bottom" secondItem="W6O-t1-Vlv" secondAttribute="bottom" priority="750" constant="16.5" id="z9P-31-Gwa"/>
+                <constraint firstItem="ZTg-uK-7eu" firstAttribute="bottom" secondItem="W6O-t1-Vlv" secondAttribute="bottom" constant="8" id="msW-R1-Ywe"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <size key="customSize" width="292" height="283"/>
@@ -56,7 +57,4 @@
             <point key="canvasLocation" x="57.600000000000001" y="173.16341829085459"/>
         </collectionViewCell>
     </objects>
-    <resources>
-        <image name="placeholder" width="250" height="250"/>
-    </resources>
 </document>
