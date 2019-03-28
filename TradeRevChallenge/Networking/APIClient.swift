@@ -15,6 +15,7 @@ final class APIClient {
     private(set) lazy var session: URLSession = {
         return URLSession.shared
     }()
+    
     // MARK: - Fetching Photos
     func fetchPhotos(from page: Int, completion: @escaping (Result<APIResponse, DataResponseError>) -> Void) {
         let urlRequest = URLRequest(url: baseURL.appendingPathComponent(APIRequest.photosPath))

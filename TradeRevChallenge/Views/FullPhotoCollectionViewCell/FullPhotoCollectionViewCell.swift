@@ -52,9 +52,6 @@ class FullPhotoCollectionViewCell: UICollectionViewCell {
         super.prepareForReuse()
         scrollView.setZoomScale(1, animated: true)
         configure(with: .none)
-        self.subviews.forEach({ view in
-            print("view: \(view.self), frame: \(view.frame)")
-        })
     }
 
     func configure(with photo: Photo?) {

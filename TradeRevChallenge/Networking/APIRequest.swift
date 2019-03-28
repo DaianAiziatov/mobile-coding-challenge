@@ -9,7 +9,7 @@
 import Foundation
 
 struct APIRequest {
-
+    // Past your access key here or add APIKeys.plist file into root project folder
     static var clientID: String? {
         if let path = Bundle.main.path(forResource: "APIKeys", ofType: "plist"),
             let dictRoot = NSDictionary(contentsOfFile: path) {

@@ -10,17 +10,76 @@ import UIKit
 
 class ThumbCollectionViewCell: UICollectionViewCell {
 
-    @IBOutlet weak var imageView: UIImageView!
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    private var activityIndicator: UIActivityIndicatorView!
+    private var imageView: UIImageView!
+    private var view: UIView!
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        view = UIView()
+        view.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        self.addSubview(view)
+
+        imageView = UIImageView()
+        imageView.image = UIImage(named: "placeholder")
+        imageView.contentMode = .scaleAspectFit
+        imageView.isHidden = true
+        view.addSubview(imageView)
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+
+        activityIndicator = UIActivityIndicatorView()
+        activityIndicator.style = .whiteLarge
+        activityIndicator.color = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        activityIndicator.hidesWhenStopped = true
+        activityIndicator.startAnimating()
+        self.addSubview(activityIndicator)
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        view.frame = self.bounds
+        activityIndicator.frame = self.bounds
+        NSLayoutConstraint(
+            item: imageView,
+            attribute: .top,
+            relatedBy: .equal,
+            toItem: self,
+            attribute: .top,
+            multiplier: 1.0,
+            constant: 0
+        ).isActive = true
+        NSLayoutConstraint(
+            item: imageView,
+            attribute: .leading,
+            relatedBy: .equal,
+            toItem: self,
+            attribute: .leading,
+            multiplier: 1.0,
+            constant: 0
+        ).isActive = true
+        NSLayoutConstraint(
+            item: self,
+            attribute: .trailing,
+            relatedBy: .equal,
+            toItem: imageView,
+            attribute: .trailing,
+            multiplier: 1.0,
+            constant: 0
+        ).isActive = true
+        NSLayoutConstraint(
+            item: self,
+            attribute: .bottom,
+            relatedBy: .equal,
+            toItem: imageView,
+            attribute: .bottom,
+            multiplier: 1.0,
+            constant: 0
+        ).isActive = true
+    }
 
     override func prepareForReuse() {
         super.prepareForReuse()
         configure(with: .none)
-    }
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        activityIndicator.hidesWhenStopped = true
     }
 
     func configure(with photo: Photo?) {
@@ -57,6 +116,10 @@ class ThumbCollectionViewCell: UICollectionViewCell {
         activityIndicator.stopAnimating()
         self.imageView.isHidden = false
         imageView.image = UIImage(named: "error")
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 
 }

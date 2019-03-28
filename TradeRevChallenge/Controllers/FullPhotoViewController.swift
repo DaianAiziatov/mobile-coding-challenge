@@ -27,21 +27,30 @@ class FullPhotoViewController: UIViewController, AlertDisplayable {
 
     private var client = APIClient()
     private var isFetchInProgress = false
+    // "Full screen" mode for photoview
     private var isAlreadyTapped = false {
         didSet {
             navigationBar.isHidden = isAlreadyTapped
             toolbar.isHidden = isAlreadyTapped
             descriptionLabel.isHidden = isAlreadyTapped
             collectionView.backgroundColor = isAlreadyTapped ? #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1) : #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+            UIView.animate(withDuration: 0.3) {
+                self.setNeedsStatusBarAppearanceUpdate()
+            }
         }
     }
     private var lastContentOffset: CGFloat = 0
     private var previousVisibleIndexPath: IndexPath = [0, 0]
 
     override var prefersStatusBarHidden: Bool {
-        return navigationBar.isHidden == true
+        return isAlreadyTapped
     }
-    
+
+    override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation {
+        return UIStatusBarAnimation.slide
+    }
+
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.largeTitleDisplayMode = .never
@@ -50,24 +59,47 @@ class FullPhotoViewController: UIViewController, AlertDisplayable {
         collectionView.prefetchDataSource = self
         collectionView.bounces = false
         collectionView.register(FullPhotoCollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
-        collectionView.reloadData()
         DispatchQueue.main.async {
+            self.collectionView.reloadData()
+            self.collectionView.layoutIfNeeded()
             self.collectionView.scrollToItem(at: self.passedContentOffset, at: .left, animated: false)
             self.setAdditionalInfo(for: self.passedContentOffset)
         }
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTapScrollView(recognizer:)))
         tapGesture.numberOfTapsRequired = 1
         collectionView.addGestureRecognizer(tapGesture)
-
-        // TODO: - Add prefetch for fullscreen mode and resolve bug with zooming
-
     }
-    
+
+    // Handle device rotation
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        guard let flowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout else {
+            return
+        }
+        flowLayout.itemSize = collectionView.frame.size
+        flowLayout.invalidateLayout()
+        collectionView.collectionViewLayout.invalidateLayout()
+    }
+
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        let offset = collectionView.contentOffset
+        let width = collectionView.bounds.size.width
+        let index = round(offset.x / width)
+        let newOffset = CGPoint(x: index * size.width, y: offset.y)
+        collectionView.setContentOffset(newOffset, animated: false)
+        coordinator.animate(alongsideTransition: { _ in
+            self.collectionView.reloadData()
+            self.collectionView.setContentOffset(newOffset, animated: false)
+        }, completion: nil)
+    }
+
     @IBAction func handleTapDoneButton(_ sender: UIBarButtonItem) {
         delegate?.update(photos: photos, and: currentPage)
         self.dismiss(animated: true)
     }
 
+    // MARK: - Fetch Photo
     private func fetchPhotos() {
         guard !isFetchInProgress else {
             return
@@ -101,6 +133,7 @@ class FullPhotoViewController: UIViewController, AlertDisplayable {
         isAlreadyTapped = !isAlreadyTapped
     }
 
+    // Setup additional info for cell
     private func setAdditionalInfo(for indexPath: IndexPath?) {
         if let indexPath = indexPath {
             self.descriptionLabel.text = self.photos[indexPath.item].description
@@ -109,8 +142,8 @@ class FullPhotoViewController: UIViewController, AlertDisplayable {
     }
 }
 
+// MARK: - CollectionView Delegate Flow Layout
 extension FullPhotoViewController: UICollectionViewDelegateFlowLayout {
-    
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         setAdditionalInfo(for: collectionView.indexPathsForVisibleItems.first)
     }
@@ -145,6 +178,7 @@ extension FullPhotoViewController: UICollectionViewDelegateFlowLayout {
 
 }
 
+// MARK: - CollectionView Data Source
 extension FullPhotoViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return photos.count
@@ -159,6 +193,7 @@ extension FullPhotoViewController: UICollectionViewDataSource {
     }
 }
 
+// MARK: - CollectionView Data Source Prefetching
 extension FullPhotoViewController: UICollectionViewDataSourcePrefetching {
     func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
         if indexPaths.contains(where: isLoadingCell) {

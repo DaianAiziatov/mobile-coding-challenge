@@ -64,7 +64,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" pagingEnabled="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="0vB-jS-iMO">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="ImK-78-EHF">
                                     <size key="itemSize" width="50" height="50"/>
@@ -98,7 +98,7 @@
                                         <barButtonItem key="leftBarButtonItem" style="done" systemItem="done" id="df8-IG-lwC">
                                             <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <connections>
-                                                <action selector="handleTapDoneButton:" destination="jdk-gz-ldW" id="Lfb-AX-HER"/>
+                                                <action selector="handleTapDoneButton:" destination="jdk-gz-ldW" id="cgj-bH-zPc"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
@@ -112,7 +112,7 @@
                             <constraint firstItem="zYf-GC-mbb" firstAttribute="trailing" secondItem="Hk9-xB-D24" secondAttribute="trailing" id="S7l-Kh-bef"/>
                             <constraint firstItem="zYf-GC-mbb" firstAttribute="bottom" secondItem="0vB-jS-iMO" secondAttribute="bottom" id="Te0-qv-8lG"/>
                             <constraint firstItem="zYf-GC-mbb" firstAttribute="trailing" secondItem="Oip-X4-Aa9" secondAttribute="trailing" id="W1h-qu-FwM"/>
-                            <constraint firstItem="0vB-jS-iMO" firstAttribute="top" secondItem="hzC-rn-sTv" secondAttribute="top" id="WFy-56-zki"/>
+                            <constraint firstItem="0vB-jS-iMO" firstAttribute="top" secondItem="zYf-GC-mbb" secondAttribute="top" id="WFy-56-zki"/>
                             <constraint firstItem="zYf-GC-mbb" firstAttribute="trailing" secondItem="0vB-jS-iMO" secondAttribute="trailing" id="Xay-gP-k0D"/>
                             <constraint firstItem="Oip-X4-Aa9" firstAttribute="top" secondItem="Hk9-xB-D24" secondAttribute="bottom" id="eB5-OC-SKB"/>
                             <constraint firstItem="Oip-X4-Aa9" firstAttribute="leading" secondItem="zYf-GC-mbb" secondAttribute="leading" id="hOg-qq-Xz3"/>

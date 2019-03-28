@@ -26,16 +26,24 @@ class PhotosViewController: UIViewController, AlertDisplayable {
         return photos.count
     }
 
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         indicatorView.startAnimating()
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.prefetchDataSource = self
-        collectionView.register(UINib(nibName: "ThumbCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "thumbCell")
+        collectionView.register(ThumbCollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
         fetchPhotos()
     }
 
+    // Handle device rotation
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        collectionView.collectionViewLayout.invalidateLayout()
+    }
+
+    // MARK: - Fetch photo
     private func fetchPhotos() {
         guard !isFetchInProgress else {
             return
@@ -65,6 +73,7 @@ class PhotosViewController: UIViewController, AlertDisplayable {
         }
     }
 
+    // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showFull", let destination = (segue.destination as? FullPhotoViewController) {
             destination.photos = photos
@@ -77,6 +86,7 @@ class PhotosViewController: UIViewController, AlertDisplayable {
         }
     }
 
+    // MARK: - ScrollView Delegate
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         // Check if bottom reached and we are still not in the end of fetching
         if scrollView.contentOffset.y >= (scrollView.contentSize.height - scrollView.frame.size.height) {
@@ -94,13 +104,12 @@ extension PhotosViewController: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "thumbCell", for: indexPath) as? ThumbCollectionViewCell {
+        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as? ThumbCollectionViewCell {
             cell.configure(with: photos[indexPath.item])
             return cell
         }
         return UICollectionViewCell()
     }
-
 }
 
 // MARK: - Collection View Delegate Flow Layout
@@ -150,7 +159,6 @@ extension PhotosViewController: FullPhotoViewControllerDelegate {
         self.currentPage = currentPage
         let difference = photos.difference(from: self.photos)
         self.photos = photos
-        print("returned photocount: \(photos.count); was before: \(self.photos.count); difference: \(difference.count)")
         let indexPathsToReload = self.calculateIndexPathsToReload(from: difference)
         self.onFetchCompleted(with: indexPathsToReload)
     }

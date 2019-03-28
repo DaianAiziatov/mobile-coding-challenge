@@ -9,6 +9,10 @@
 import Foundation
 
 enum DataResponseError: Error {
+    case network
+    case decoding
+    case noAccessKey
+    
     var reason: String {
         switch self {
         case .network:
@@ -19,8 +23,4 @@ enum DataResponseError: Error {
             return "Please add APIKey.plist file with access key"
         }
     }
-    
-    case network
-    case decoding
-    case noAccessKey
 }
