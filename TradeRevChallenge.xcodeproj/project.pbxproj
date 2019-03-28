@@ -31,20 +31,9 @@
 		2BFC9236224B2B6200182D89 /* FullPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BFC9235224B2B6200182D89 /* FullPhotoViewController.swift */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		2BFC91F5224A862E00182D89 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2BFC91D8224A862B00182D89 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 2BFC91DF224A862B00182D89;
-			remoteInfo = TradeRevChallenge;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
 		2BC4E143224C422600A20FA2 /* Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
 		2BC4E14D224D4A6F00A20FA2 /* TradeRevChallenge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TradeRevChallenge.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		2BC4E14E224D4A6F00A20FA2 /* TradeRevChallengeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = TradeRevChallengeTests.xctest; path = "/Users/daianaiziatov/Desktop/Assessment/TradeRevChallenge/build/Debug-iphoneos/TradeRevChallengeTests.xctest"; sourceTree = "<absolute>"; };
 		2BC4E14F224D4A8F00A20FA2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2BFC91E3224A862B00182D89 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2BFC91E5224A862B00182D89 /* PhotosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosViewController.swift; sourceTree = "<group>"; };
@@ -71,13 +60,6 @@
 
 /* Begin PBXFrameworksBuildPhase section */
 		2BFC91DD224A862B00182D89 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		2BFC91F1224A862E00182D89 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -218,24 +200,6 @@
 			productReference = 2BC4E14D224D4A6F00A20FA2 /* TradeRevChallenge.app */;
 			productType = "com.apple.product-type.application";
 		};
-		2BFC91F3224A862E00182D89 /* TradeRevChallengeTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 2BFC9200224A862E00182D89 /* Build configuration list for PBXNativeTarget "TradeRevChallengeTests" */;
-			buildPhases = (
-				2BFC91F0224A862E00182D89 /* Sources */,
-				2BFC91F1224A862E00182D89 /* Frameworks */,
-				2BFC91F2224A862E00182D89 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				2BFC91F6224A862E00182D89 /* PBXTargetDependency */,
-			);
-			name = TradeRevChallengeTests;
-			productName = TradeRevChallengeTests;
-			productReference = 2BC4E14E224D4A6F00A20FA2 /* TradeRevChallengeTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -248,10 +212,6 @@
 				TargetAttributes = {
 					2BFC91DF224A862B00182D89 = {
 						CreatedOnToolsVersion = 10.1;
-					};
-					2BFC91F3224A862E00182D89 = {
-						CreatedOnToolsVersion = 10.1;
-						TestTargetID = 2BFC91DF224A862B00182D89;
 					};
 				};
 			};
@@ -269,7 +229,6 @@
 			projectRoot = "";
 			targets = (
 				2BFC91DF224A862B00182D89 /* TradeRevChallenge */,
-				2BFC91F3224A862E00182D89 /* TradeRevChallengeTests */,
 			);
 		};
 /* End PBXProject section */
@@ -283,13 +242,6 @@
 				2BFC9204224A86FB00182D89 /* APIKeys.plist in Resources */,
 				2BC4E150224D4A8F00A20FA2 /* Assets.xcassets in Resources */,
 				2BFC91E9224A862B00182D89 /* Main.storyboard in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		2BFC91F2224A862E00182D89 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -342,22 +294,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		2BFC91F0224A862E00182D89 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		2BFC91F6224A862E00182D89 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 2BFC91DF224A862B00182D89 /* TradeRevChallenge */;
-			targetProxy = 2BFC91F5224A862E00182D89 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		2BFC91E7224A862B00182D89 /* Main.storyboard */ = {
@@ -531,48 +468,6 @@
 			};
 			name = Release;
 		};
-		2BFC9201224A862E00182D89 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = WXMC8MD6TM;
-				INFOPLIST_FILE = TradeRevChallengeTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.daian.TradeRevChallengeTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TradeRevChallenge.app/TradeRevChallenge";
-			};
-			name = Debug;
-		};
-		2BFC9202224A862E00182D89 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = WXMC8MD6TM;
-				INFOPLIST_FILE = TradeRevChallengeTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.daian.TradeRevChallengeTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TradeRevChallenge.app/TradeRevChallenge";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -590,15 +485,6 @@
 			buildConfigurations = (
 				2BFC91FE224A862E00182D89 /* Debug */,
 				2BFC91FF224A862E00182D89 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		2BFC9200224A862E00182D89 /* Build configuration list for PBXNativeTarget "TradeRevChallengeTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				2BFC9201224A862E00182D89 /* Debug */,
-				2BFC9202224A862E00182D89 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
