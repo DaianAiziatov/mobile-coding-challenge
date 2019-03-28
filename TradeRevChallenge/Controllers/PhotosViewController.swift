@@ -80,7 +80,6 @@ class PhotosViewController: UIViewController, AlertDisplayable {
             destination.currentPage = currentPage
             destination.delegate = self
             if let cell = sender as? UICollectionViewCell, let indexPath = self.collectionView.indexPath(for: cell) {
-                print("IndexPath: \(indexPath)")
                 destination.passedContentOffset = indexPath
             }
         }
