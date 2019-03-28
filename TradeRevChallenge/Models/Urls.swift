@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Urls: Decodable {
+struct Urls: Decodable, Hashable {
     private(set) var raw: String?
     private(set) var full: String?
     private(set) var regular: String?

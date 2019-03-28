@@ -8,8 +8,9 @@
 
 import Foundation
 
-struct Photo: Decodable {
+struct Photo: Decodable, Hashable {
 
+    private(set) var id: String
     private(set) var description: String?
     private(set) var alternativeDesription: String?
     private(set) var color: String?
@@ -18,11 +19,16 @@ struct Photo: Decodable {
     private(set) var user: User?
 
     enum CodingKeys: String, CodingKey {
+        case id
         case description
         case alternativeDesription = "alt_description"
         case color
         case likes
         case urls
         case user
+    }
+    
+    static func == (lhs: Photo, rhs: Photo) -> Bool {
+        return lhs.id == rhs.id
     }
 }

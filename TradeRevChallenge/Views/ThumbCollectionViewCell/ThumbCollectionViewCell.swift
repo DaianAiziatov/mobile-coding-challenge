@@ -55,6 +55,7 @@ class ThumbCollectionViewCell: UICollectionViewCell {
 
     private func setErrorImage() {
         activityIndicator.stopAnimating()
+        self.imageView.isHidden = false
         imageView.image = UIImage(named: "error")
     }
 

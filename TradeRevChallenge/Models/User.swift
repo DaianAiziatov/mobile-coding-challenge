@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct User: Decodable {
+struct User: Decodable, Hashable {
     private(set) var username: String?
     private(set) var name: String?
     private(set) var bio: String?

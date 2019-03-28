@@ -68,6 +68,8 @@ class PhotosViewController: UIViewController, AlertDisplayable {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showFull", let destination = (segue.destination as? FullPhotoViewController) {
             destination.photos = photos
+            destination.currentPage = currentPage
+            destination.delegate = self
             if let cell = sender as? UICollectionViewCell, let indexPath = self.collectionView.indexPath(for: cell) {
                 print("IndexPath: \(indexPath)")
                 destination.passedContentOffset = indexPath
@@ -87,7 +89,6 @@ class PhotosViewController: UIViewController, AlertDisplayable {
 
 // MARK: - Collection View Data Source
 extension PhotosViewController: UICollectionViewDataSource {
-
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return photos.count
     }
@@ -104,7 +105,6 @@ extension PhotosViewController: UICollectionViewDataSource {
 
 // MARK: - Collection View Delegate Flow Layout
 extension PhotosViewController: UICollectionViewDelegateFlowLayout {
-
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         performSegue(withIdentifier: "showFull", sender: collectionView.cellForItem(at: indexPath))
     }
@@ -134,7 +134,6 @@ extension PhotosViewController: UICollectionViewDelegateFlowLayout {
                         minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 2.0
     }
-
 }
 
 // MARK: - Collection View Data Source Prefetching
@@ -146,10 +145,20 @@ extension PhotosViewController: UICollectionViewDataSourcePrefetching {
     }
 }
 
+extension PhotosViewController: FullPhotoViewControllerDelegate {
+    func update(photos: [Photo], and currentPage: Int) {
+        self.currentPage = currentPage
+        let difference = photos.difference(from: self.photos)
+        self.photos = photos
+        print("returned photocount: \(photos.count); was before: \(self.photos.count); difference: \(difference.count)")
+        let indexPathsToReload = self.calculateIndexPathsToReload(from: difference)
+        self.onFetchCompleted(with: indexPathsToReload)
+    }
+}
+
 // MARK: - Helpers for pagination
 private extension PhotosViewController {
     func isLoadingCell(for indexPath: IndexPath) -> Bool {
-        //print("indexPath.item = \(indexPath.item) currentcount = \(self.currentCount)")
         return indexPath.item >= self.currentCount - 1
     }
 
