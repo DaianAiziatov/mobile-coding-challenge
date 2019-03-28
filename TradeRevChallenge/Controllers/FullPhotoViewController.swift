@@ -33,26 +33,19 @@ class FullPhotoViewController: UIViewController, AlertDisplayable {
             navigationBar.isHidden = isAlreadyTapped
             toolbar.isHidden = isAlreadyTapped
             descriptionLabel.isHidden = isAlreadyTapped
-            collectionView.backgroundColor = isAlreadyTapped ? #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1) : #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-            UIView.animate(withDuration: 0.3) {
-                self.setNeedsStatusBarAppearanceUpdate()
-            }
         }
     }
     private var lastContentOffset: CGFloat = 0
     private var previousVisibleIndexPath: IndexPath = [0, 0]
 
     override var prefersStatusBarHidden: Bool {
-        return isAlreadyTapped
-    }
-
-    override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation {
-        return UIStatusBarAnimation.slide
+        return true
     }
 
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.setNeedsStatusBarAppearanceUpdate()
         navigationItem.largeTitleDisplayMode = .never
         collectionView.dataSource = self
         collectionView.delegate = self

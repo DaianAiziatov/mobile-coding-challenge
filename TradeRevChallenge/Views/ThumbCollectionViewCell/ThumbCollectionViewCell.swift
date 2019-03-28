@@ -17,7 +17,7 @@ class ThumbCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         view = UIView()
-        view.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        view.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         self.addSubview(view)
 
         imageView = UIImageView()
@@ -29,7 +29,7 @@ class ThumbCollectionViewCell: UICollectionViewCell {
 
         activityIndicator = UIActivityIndicatorView()
         activityIndicator.style = .whiteLarge
-        activityIndicator.color = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        activityIndicator.color = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         activityIndicator.hidesWhenStopped = true
         activityIndicator.startAnimating()
         self.addSubview(activityIndicator)

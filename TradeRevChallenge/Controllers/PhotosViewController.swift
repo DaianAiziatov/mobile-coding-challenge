@@ -26,6 +26,10 @@ class PhotosViewController: UIViewController, AlertDisplayable {
         return photos.count
     }
 
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .default
+    }
+
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
