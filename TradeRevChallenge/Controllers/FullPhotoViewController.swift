@@ -19,7 +19,7 @@ class FullPhotoViewController: UIViewController, AlertDisplayable {
     @IBOutlet private weak var likesCount: UIBarButtonItem!
     @IBOutlet private weak var toolbar: UIToolbar!
     @IBOutlet private weak var navigationBar: UINavigationBar!
-
+    
     weak var delegate: FullPhotoViewControllerDelegate?
     var photos = [Photo]()
     var currentPage: Int = 0
@@ -35,32 +35,18 @@ class FullPhotoViewController: UIViewController, AlertDisplayable {
             descriptionLabel.isHidden = isAlreadyTapped
         }
     }
-    private var lastContentOffset: CGFloat = 0
-    private var previousVisibleIndexPath: IndexPath = [0, 0]
-
-    override var prefersStatusBarHidden: Bool {
-        return true
-    }
 
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.setNeedsStatusBarAppearanceUpdate()
-        navigationItem.largeTitleDisplayMode = .never
-        collectionView.dataSource = self
-        collectionView.delegate = self
-        collectionView.prefetchDataSource = self
-        collectionView.bounces = false
-        collectionView.register(FullPhotoCollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
-        DispatchQueue.main.async {
-            self.collectionView.reloadData()
-            self.collectionView.layoutIfNeeded()
-            self.collectionView.scrollToItem(at: self.passedContentOffset, at: .left, animated: false)
-            self.setAdditionalInfo(for: self.passedContentOffset)
-        }
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTapScrollView(recognizer:)))
-        tapGesture.numberOfTapsRequired = 1
-        collectionView.addGestureRecognizer(tapGesture)
+        setupCollectionView()
+        let swipeDownGesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeView(recognizer:)))
+        swipeDownGesture.direction = .down
+        view.addGestureRecognizer(swipeDownGesture)
+        let swipeUpGesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeView(recognizer:)))
+        swipeUpGesture.direction = .up
+        view.addGestureRecognizer(swipeUpGesture)
+
     }
 
     // Handle device rotation
@@ -88,8 +74,24 @@ class FullPhotoViewController: UIViewController, AlertDisplayable {
     }
 
     @IBAction func handleTapDoneButton(_ sender: UIBarButtonItem) {
-        delegate?.update(photos: photos, and: currentPage)
-        self.dismiss(animated: true)
+        dismissView()
+    }
+
+    private func setupCollectionView() {
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.prefetchDataSource = self
+        collectionView.bounces = false
+        collectionView.register(FullPhotoCollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
+        DispatchQueue.main.async {
+            self.collectionView.reloadData()
+            self.collectionView.layoutIfNeeded()
+            self.collectionView.scrollToItem(at: self.passedContentOffset, at: .left, animated: false)
+            self.setAdditionalInfo(for: self.passedContentOffset)
+        }
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTapScrollView(recognizer:)))
+        tapGesture.numberOfTapsRequired = 1
+        collectionView.addGestureRecognizer(tapGesture)
     }
 
     // MARK: - Fetch Photo
@@ -124,6 +126,16 @@ class FullPhotoViewController: UIViewController, AlertDisplayable {
     @objc
     private func handleTapScrollView(recognizer: UITapGestureRecognizer) {
         isAlreadyTapped = !isAlreadyTapped
+    }
+
+    @objc
+    private func handleSwipeView(recognizer: UISwipeGestureRecognizer) {
+        dismissView()
+    }
+
+    private func dismissView() {
+        delegate?.update(photos: photos, and: currentPage)
+        self.dismiss(animated: true)
     }
 
     // Setup additional info for cell

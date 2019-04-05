@@ -40,7 +40,7 @@ class ThumbCollectionViewCell: UICollectionViewCell {
         view.frame = self.bounds
         activityIndicator.frame = self.bounds
         NSLayoutConstraint(
-            item: imageView,
+            item: imageView as Any,
             attribute: .top,
             relatedBy: .equal,
             toItem: self,
@@ -49,7 +49,7 @@ class ThumbCollectionViewCell: UICollectionViewCell {
             constant: 0
         ).isActive = true
         NSLayoutConstraint(
-            item: imageView,
+            item: imageView as Any,
             attribute: .leading,
             relatedBy: .equal,
             toItem: self,

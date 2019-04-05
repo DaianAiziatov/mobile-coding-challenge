@@ -13,6 +13,17 @@ class PhotosViewController: UIViewController, AlertDisplayable {
     @IBOutlet private weak var collectionView: UICollectionView!
     @IBOutlet private weak var indicatorView: UIActivityIndicatorView!
 
+    private var transition = ExpandTransition()
+    private var selectedCell: UICollectionViewCell? {
+        if let indexPathForSelectedCell = collectionView.indexPathsForSelectedItems?.first,
+            let selectedCell = collectionView.cellForItem(at: indexPathForSelectedCell) {
+            return selectedCell
+        } else {
+            return nil
+        }
+    }
+    private var currentPoint: CGPoint?
+
     private var photos = [Photo]()
     private var client = APIClient()
 
@@ -26,18 +37,11 @@ class PhotosViewController: UIViewController, AlertDisplayable {
         return photos.count
     }
 
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .default
-    }
-
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupCollectionView()
         indicatorView.startAnimating()
-        collectionView.dataSource = self
-        collectionView.delegate = self
-        collectionView.prefetchDataSource = self
-        collectionView.register(ThumbCollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
         fetchPhotos()
     }
 
@@ -45,6 +49,13 @@ class PhotosViewController: UIViewController, AlertDisplayable {
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         collectionView.collectionViewLayout.invalidateLayout()
+    }
+
+    private func setupCollectionView() {
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.prefetchDataSource = self
+        collectionView.register(ThumbCollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
     }
 
     // MARK: - Fetch photo
@@ -79,13 +90,17 @@ class PhotosViewController: UIViewController, AlertDisplayable {
 
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "showFull", let destination = (segue.destination as? FullPhotoViewController) {
+        if segue.identifier == "showFull",
+            let destination = (segue.destination as? FullPhotoViewController) {
+            destination.transitioningDelegate = self
+            destination.modalPresentationStyle = .custom
             destination.photos = photos
             destination.currentPage = currentPage
             destination.delegate = self
             if let cell = sender as? UICollectionViewCell, let indexPath = self.collectionView.indexPath(for: cell) {
                 destination.passedContentOffset = indexPath
             }
+            //statusBarHidden = true
         }
     }
 
@@ -118,6 +133,8 @@ extension PhotosViewController: UICollectionViewDataSource {
 // MARK: - Collection View Delegate Flow Layout
 extension PhotosViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let theAttributes = collectionView.layoutAttributesForItem(at: indexPath)
+        currentPoint = collectionView.convert((theAttributes?.frame.origin)!, to: collectionView.superview)
         performSegue(withIdentifier: "showFull", sender: collectionView.cellForItem(at: indexPath))
     }
 
@@ -164,6 +181,7 @@ extension PhotosViewController: FullPhotoViewControllerDelegate {
         self.photos = photos
         let indexPathsToReload = self.calculateIndexPathsToReload(from: difference)
         self.onFetchCompleted(with: indexPathsToReload)
+        //statusBarHidden = false
     }
 }
 
@@ -202,5 +220,22 @@ private extension PhotosViewController {
         let startIndex = photos.count - newPhotos.count
         let endIndex = startIndex + newPhotos.count
         return (startIndex..<endIndex).map { IndexPath(row: $0, section: 0) }
+    }
+}
+
+// MARK: - ViewController Transitioning Delegate
+extension PhotosViewController: UIViewControllerTransitioningDelegate {
+    func animationController(forPresented presented: UIViewController,
+                             presenting: UIViewController,
+                             source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        transition.transitionMode = .present
+        transition.origin = currentPoint!
+        transition.selectedCell = selectedCell
+        return transition
+    }
+
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        transition.transitionMode = .dismiss
+        return transition
     }
 }
